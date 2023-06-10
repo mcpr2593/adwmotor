@@ -8,6 +8,7 @@ $berat_tp = str_replace('.', '', $_POST['berat_tp']);
 $stok_tp = str_replace('.', '', $_POST['stok_tp']);
 $deskripsi_tp = mysqli_real_escape_string($server, $_POST['deskripsi_tp']);
 $varian_warna = substr($_POST['varian_warna'], 1);
+$kredit = substr($_POST['kredit'], 1);
 
 $time = date("Y-m-d H:i:s");
 
@@ -66,7 +67,7 @@ if (!empty($_FILES["c_img_tp_5"]["name"])) {
 $name_gambar_add = $nametodb1 . $nametodb2 . $nametodb3 . $nametodb4 . $nametodb5;
 $name_gambar = substr($name_gambar_add, 0, -1);
 
-$insert_product_adm = $server->query("INSERT INTO `iklan`(`id_kategori`, `gambar`, `judul`, `harga`, `deskripsi`, `berat`, `warna`, `stok`, `waktu`) VALUES ('$kategori_tp', '$name_gambar', '$judul_tp', '$harga_tp', '$deskripsi_tp', '$berat_tp', '$varian_warna', '$stok_tp', '$time')");
+$insert_product_adm = $server->query("INSERT INTO `iklan`(`id_kategori`, `gambar`, `judul`, `harga`, `kredit`, `deskripsi`, `berat`, `warna`, `stok`, `waktu`) VALUES ('$kategori_tp', '$name_gambar', '$judul_tp', '$harga_tp', '$kredit', '$deskripsi_tp', '$berat_tp', '$varian_warna', '$stok_tp', '$time')");
 
 if ($insert_product_adm) {
 ?>

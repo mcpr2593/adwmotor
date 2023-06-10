@@ -98,6 +98,26 @@ function simpan_tp() {
     }
     var cek_varian_warna_tf = hasil_get_value_v_warna_adm.includes('0kosong0');
 
+    var jum_v_kredit_val = document.getElementById('jum_v_kredit').value;
+    var hasil_get_value_v_kredit_adm = [];
+    for (let v_kredit_adm_lp = 1; v_kredit_adm_lp <= jum_v_kredit_val; v_kredit_adm_lp++) {
+        var gab_v_kredit_adm = 'uang_muka' + v_kredit_adm_lp;
+        var gab_v_kredit_bulanan_adm = 'bulanan' + v_kredit_adm_lp;
+        var get_value_v_kredit_adm = document.getElementById(gab_v_kredit_adm).value;
+        var get_value_v_kredit_bulanan_adm = document.getElementById(gab_v_kredit_bulanan_adm).value;
+
+        if (get_value_v_kredit_adm == '' || get_value_v_kredit_bulanan_adm == '') {
+            document.getElementById(gab_v_kredit_adm).style.border = '1px solid #EA2027';
+            document.getElementById(gab_v_kredit_bulanan_adm).style.border = '1px solid #EA2027';
+            hasil_get_value_v_kredit_adm[v_kredit_adm_lp] = '0kosong0===0kosong0';
+        } else {
+            document.getElementById(gab_v_kredit_adm).style.border = '1px solid #e2e2e2';
+            document.getElementById(gab_v_kredit_bulanan_adm).style.border = '1px solid #e2e2e2';
+            hasil_get_value_v_kredit_adm[v_kredit_adm_lp] = get_value_v_kredit_adm + '===' + get_value_v_kredit_bulanan_adm;
+        }
+    }
+    var cek_kredit_tf = hasil_get_value_v_kredit_adm.includes('0kosong0===0kosong0');
+
 
     if (judul_tp.value == '') {
         judul_tp.style.border = '1px solid #EA2027';
@@ -134,7 +154,7 @@ function simpan_tp() {
     } else {
         isi_box_img_produk_tambah1.style.border = '1px solid #e2e2e2';
     }
-    if (judul_tp.value && harga_tp.value && kategori_tp.value && berat_tp.value && stok_tp.value && deskripsi_tp.value && c_img_tp_1.value && cek_varian_warna_tf == false) {
+    if (judul_tp.value && harga_tp.value && kategori_tp.value && berat_tp.value && stok_tp.value && deskripsi_tp.value && c_img_tp_1.value && cek_varian_warna_tf == false && cek_kredit_tf == false) {
         var data_add_product = new FormData();
         data_add_product.append('judul_tp', document.getElementById('judul_tp').value);
         data_add_product.append('harga_tp', document.getElementById('harga_tp').value);
@@ -148,6 +168,7 @@ function simpan_tp() {
         data_add_product.append('c_img_tp_4', document.getElementById('c_img_tp_4').files[0]);
         data_add_product.append('c_img_tp_5', document.getElementById('c_img_tp_5').files[0]);
         data_add_product.append('varian_warna', hasil_get_value_v_warna_adm);
+        data_add_product.append('kredit', hasil_get_value_v_kredit_adm);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 1) {
@@ -225,15 +246,15 @@ function batal_ep() {
         document.getElementById(box_v_warna_adm_ep_cs).style.display = 'none';
         document.getElementById(v_warna_adm_ep_cs).value = '';
 
-        var box_v_ukuran_adm_ep_cs = 'box_v_ukuran_adm_ep' + lp_waruk_ep;
-        var v_ukuran_adm_ep_cs = 'v_ukuran_adm_ep' + lp_waruk_ep;
-        var v_ukuran_harga_adm_ep_cs = 'v_ukuran_harga_adm_ep' + lp_waruk_ep;
-        document.getElementById(box_v_ukuran_adm_ep_cs).style.display = 'none';
-        document.getElementById(v_ukuran_adm_ep_cs).value = '';
-        document.getElementById(v_ukuran_adm_ep_cs).value = '';
+        var box_v_kredit_adm_ep_cs = 'box_v_kredit_adm_ep' + lp_waruk_ep;
+        var v_kredit_adm_ep_cs = 'uang_muka_ep' + lp_waruk_ep;
+        var v_kredit_harga_adm_ep_cs = 'bulanan_ep' + lp_waruk_ep;
+        document.getElementById(box_v_kredit_adm_ep_cs).style.display = 'none';
+        document.getElementById(v_kredit_adm_ep_cs).value = '';
+        document.getElementById(v_kredit_harga_adm_ep_cs).value = '';
     };
     document.getElementById('jum_v_warna_ep').value = '0';
-    document.getElementById('jum_v_ukuran_ep').value = '0';
+    document.getElementById('jum_v_kredit_ep').value = '0';
 }
 
 function simpan_ep() {
@@ -252,25 +273,25 @@ function simpan_ep() {
     }
     var cek_varian_warna_tf_ep = hasil_get_value_v_warna_adm_ep.includes('0kosong0');
 
-    var jum_v_ukuran_val_ep = document.getElementById('jum_v_ukuran_ep').value;
-    var hasil_get_value_v_ukuran_adm_ep = [];
-    for (let v_ukuran_adm_lp_ep = 1; v_ukuran_adm_lp_ep <= jum_v_ukuran_val_ep; v_ukuran_adm_lp_ep++) {
-        var gab_v_ukuran_adm_ep = 'v_ukuran_adm_ep' + v_ukuran_adm_lp_ep;
-        var gab_v_ukuran_harga_adm_ep = 'v_ukuran_harga_adm_ep' + v_ukuran_adm_lp_ep;
-        var get_value_v_ukuran_adm = document.getElementById(gab_v_ukuran_adm_ep).value;
-        var get_value_v_ukuran_harga_adm_ep = document.getElementById(gab_v_ukuran_harga_adm_ep).value;
+    var jum_v_kredit_val_ep = document.getElementById('jum_v_kredit_ep').value;
+    var hasil_get_value_v_kredit_adm_ep = [];
+    for (let v_kredit_adm_lp_ep = 1; v_kredit_adm_lp_ep <= jum_v_kredit_val_ep; v_kredit_adm_lp_ep++) {
+        var gab_v_kredit_adm_ep = 'uang_muka_ep' + v_kredit_adm_lp_ep;
+        var gab_v_kredit_bulanan_adm_ep = 'bulanan_ep' + v_kredit_adm_lp_ep;
+        var get_value_v_kredit_adm = document.getElementById(gab_v_kredit_adm_ep).value;
+        var get_value_v_kredit_bulanan_adm_ep = document.getElementById(gab_v_kredit_bulanan_adm_ep).value;
 
-        if (get_value_v_ukuran_adm == '' || get_value_v_ukuran_harga_adm_ep == '') {
-            document.getElementById(gab_v_ukuran_adm_ep).style.border = '1px solid #EA2027';
-            document.getElementById(gab_v_ukuran_harga_adm_ep).style.border = '1px solid #EA2027';
-            hasil_get_value_v_ukuran_adm_ep[v_ukuran_adm_lp_ep] = '0kosong0===0kosong0';
+        if (get_value_v_kredit_adm == '' || get_value_v_kredit_bulanan_adm_ep == '') {
+            document.getElementById(gab_v_kredit_adm_ep).style.border = '1px solid #EA2027';
+            document.getElementById(gab_v_kredit_bulanan_adm_ep).style.border = '1px solid #EA2027';
+            hasil_get_value_v_kredit_adm_ep[v_kredit_adm_lp_ep] = '0kosong0===0kosong0';
         } else {
-            document.getElementById(gab_v_ukuran_adm_ep).style.border = '1px solid #e2e2e2';
-            document.getElementById(gab_v_ukuran_harga_adm_ep).style.border = '1px solid #e2e2e2';
-            hasil_get_value_v_ukuran_adm_ep[v_ukuran_adm_lp_ep] = get_value_v_ukuran_adm + '===' + get_value_v_ukuran_harga_adm_ep;
+            document.getElementById(gab_v_kredit_adm_ep).style.border = '1px solid #e2e2e2';
+            document.getElementById(gab_v_kredit_bulanan_adm_ep).style.border = '1px solid #e2e2e2';
+            hasil_get_value_v_kredit_adm_ep[v_kredit_adm_lp_ep] = get_value_v_kredit_adm + '===' + get_value_v_kredit_bulanan_adm_ep;
         }
     }
-    var cek_varian_ukuran_tf_ep = hasil_get_value_v_ukuran_adm_ep.includes('0kosong0===0kosong0');
+    var cek_kredit_tf_ep = hasil_get_value_v_kredit_adm_ep.includes('0kosong0===0kosong0');
 
     if (judul_ep.value == '') {
         judul_ep.style.border = '1px solid #EA2027';
@@ -302,7 +323,7 @@ function simpan_ep() {
     } else {
         deskripsi_ep.style.border = '1px solid #e2e2e2';
     }
-    if (judul_ep.value && harga_ep.value && kategori_ep.value && berat_ep.value && stok_ep.value && deskripsi_ep.value && cek_varian_warna_tf_ep == false && cek_varian_ukuran_tf_ep == false) {
+    if (judul_ep.value && harga_ep.value && kategori_ep.value && berat_ep.value && stok_ep.value && deskripsi_ep.value && cek_varian_warna_tf_ep == false && cek_kredit_tf_ep == false) {
         var data_edit_product = new FormData();
         data_edit_product.append('id_produk_ep', document.getElementById('id_produk_ep').value);
         data_edit_product.append('judul_ep', document.getElementById('judul_ep').value);
@@ -322,7 +343,7 @@ function simpan_ep() {
         data_edit_product.append('val_img_ed_ep4', document.getElementById('val_img_ed_ep4').value);
         data_edit_product.append('val_img_ed_ep5', document.getElementById('val_img_ed_ep5').value);
         data_edit_product.append('varian_warna_ep', hasil_get_value_v_warna_adm_ep);
-        data_edit_product.append('varian_ukuran_ep', hasil_get_value_v_ukuran_adm_ep);
+        data_edit_product.append('kredit_ep', hasil_get_value_v_kredit_adm_ep);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 1) {

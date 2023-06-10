@@ -100,8 +100,8 @@ $jumlah_produk_adm = mysqli_num_rows($select_produk_adm);
                         for ($v_kredit_adm = 1; $v_kredit_adm <= 10; $v_kredit_adm++) {
                         ?>
                             <div class="box_form_isi_tp_adm2 v_warna_adm" id="box_v_kredit_adm<?php echo $v_kredit_adm; ?>">
-                                <input type="text" class="input currency" id="<?php echo $v_kredit_adm; ?>" placeholder="Uang Muka">
-                                <input type="text" class="input currency" id="<?php echo $v_kredit_adm; ?>" placeholder="Nominal Bulanan">
+                                <input type="text" class="input" id="uang_muka<?php echo $v_kredit_adm; ?>" placeholder="Uang Muka">
+                                <input type="text" class="input" id="bulanan<?php echo $v_kredit_adm; ?>" placeholder="Bulanan">
                             </div>
                         <?php
                         }
@@ -227,8 +227,8 @@ $jumlah_produk_adm = mysqli_num_rows($select_produk_adm);
                         for ($v_kredit_adm_ep = 1; $v_kredit_adm_ep <= 10; $v_kredit_adm_ep++) {
                         ?>
                             <div class="box_form_isi_tp_adm2 v_warna_adm" id="box_v_kredit_adm_ep<?php echo $v_kredit_adm_ep; ?>">
-                                <input type="text" class="input currency" id="<?php echo $v_kredit_adm_ep; ?>" placeholder="Uang Muka">
-                                <input type="text" class="input currency" id="<?php echo $v_kredit_adm_ep; ?>" placeholder="Nominal Bulanan">
+                                <input type="text" class="input" id="uang_muka_ep<?php echo $v_kredit_adm_ep; ?>" placeholder="Uang Muka">
+                                <input type="text" class="input" id="bulanan_ep<?php echo $v_kredit_adm_ep; ?>" placeholder="Nominal Bulanan">
                             </div>
                         <?php
                         }
@@ -348,6 +348,26 @@ $jumlah_produk_adm = mysqli_num_rows($select_produk_adm);
                                             box_v_warna_adm_ep<?php echo $lop_jw_ep; ?>.style.display = 'block';
                                             v_warna_adm_ep<?php echo $lop_jw_ep; ?>.value = '<?php echo $exp_warna_adm_ep[$key_arr_warna_ep]; ?>';
                                         <?php
+                                        }
+                                    }
+                                    if ($list_produk_adm['kredit'] !== '') {
+                                        $exp_kredit_adm_ep = explode(',', $list_produk_adm['kredit']);
+                                        $jumlah_kredit_adm_ep = count($exp_kredit_adm_ep);
+                                        ?>
+                                        jum_v_kredit_ep.value = <?php echo $jumlah_kredit_adm_ep; ?>;
+                                        <?php
+                                        for ($lop_ju_ep = 1; $lop_ju_ep <= $jumlah_kredit_adm_ep; $lop_ju_ep++) {
+                                            $key_arr_kredit_ep = $lop_ju_ep - 1;
+                                            $exp_har_uk_ep = explode('===', $exp_kredit_adm_ep[$key_arr_kredit_ep]);
+                                        ?>
+                                            if ($jumlah_kredit_adm_ep = 1) {
+                                                box_add_kredit_varian_adm_ep.style.display = 'none';
+                                            }
+                                            box_v_kredit_adm_ep<?php echo $lop_ju_ep; ?>.style.display = 'grid';
+                                            uang_muka_ep<?php echo $lop_ju_ep; ?>.value = '<?php echo $exp_har_uk_ep[0]; ?>';
+                                            bulanan_ep<?php echo $lop_ju_ep; ?>.value = '<?php echo $exp_har_uk_ep[1]; ?>';
+    
+                                    <?php
                                         }
                                     }
                                     ?>

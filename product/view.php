@@ -62,28 +62,7 @@ if ($product_data) {
             <?php
             }
             ?>
-            <?php
-            if (!$product_data['ukuran'] == '') {
-            ?>
-                <div class="varian_ukuran">
-                    <h1>Size</h1>
-                    <div class="box_select_varian">
-                        <?php
-                        $exp_ukuran_vp = explode(',', $product_data['ukuran']);
-                        foreach ($exp_ukuran_vp as $key_ukuran_vp => $value_ukuran_vp) {
-                            $exp_ukuran_saja_vp = explode('===', $value_ukuran_vp);
-                            $hitung_diskon_vp = ($product_data['diskon'] / 100) * $exp_ukuran_saja_vp[1];
-                            $harga_diskon_vp = $exp_ukuran_saja_vp[1] - $hitung_diskon_vp;
-                        ?>
-                            <div class="isi_box_select_varian c_id_varian_ukuran" id="id_varian_ukuran<?php echo $key_ukuran_vp; ?>" onclick="click_varian_ukuran('<?php echo $key_ukuran_vp; ?>', '<?php echo $exp_ukuran_saja_vp[0]; ?>', '<?php echo $harga_diskon_vp; ?>', '<?php echo $exp_ukuran_saja_vp[1]; ?>')"><?php echo $value_ukuran_vp[0]; ?></div>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-            <?php
-            }
-            ?>
+
             <div class="harga_varian_produk">
                 <p>Jumlah</p>
                 <div class="box_pm_jumlah">
@@ -127,6 +106,43 @@ if ($product_data) {
     </div>
     <!-- PILIH VARIAN PRODUK -->
 
+        <!-- PILIH VARIAN PRODUK -->
+        <div class="back_kredit" id="back_kredit">
+        <div class="isi_kredit">
+        <div class="harga_box">
+                            <div class="isi_harga_box">
+                            <?php
+                                $exp_ukuran_vp = explode(',', $product_data['kredit']);
+                                foreach ($exp_ukuran_vp as $key_ukuran_vp => $value_ukuran_vp) {
+                            $exp_ukuran_saja_vp = explode('===', $value_ukuran_vp);
+            
+                            ?>
+                                    <div class="isi_harga_flashsale">
+                                    <i class="ri-wallet-3-fill"></i>
+                                    <p>Akumulasi Cicilan</p>
+                                </div>
+                            <h3>Uang Muka</h3>
+                            <h2><span>Rp</span> <?php echo number_format($exp_ukuran_saja_vp[0], 0, ".", "."); ?></h2>
+                            <h3>Cicilan Per Bulan</h3>
+                            <h2><span>Rp</span> <?php echo number_format($exp_ukuran_saja_vp[1], 0, ".", "."); ?> <span>(35x)</span></h2>
+
+                            </div>
+                            <?php
+                             }
+                            ?>
+                        </div>
+            <div class="box_button_varian" id="close_kredit" onclick="close_back_kredit()">
+                <div class="button" id="">
+                    <p>Kembali</p>
+                </div>
+                <div class="button" id="loading_beli_sekarang">
+                    <img src="../../assets/icons/loading-w.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PILIH VARIAN PRODUK -->
+
     <!-- HEADER -->
     <?php include '../partials/header.php'; ?>
     <!-- HEADER -->
@@ -134,7 +150,7 @@ if ($product_data) {
     <!-- CONTENT -->
     <div class="width">
         <?php
-        if (isset($_COOKIE['login'])) {
+        // if (isset($_COOKIE['login'])) {
         ?>
             <!-- PRODUK -->
             <div class="product">
@@ -211,11 +227,17 @@ if ($product_data) {
                             <?php
                             }
                             ?>
+                                    <div class="ak_cicilan" onclick="view_kredit()">
+                                    <i class="ri-wallet-3-fill"></i>
+                                    <p>Akumulasi Cicilan</p>
+                                </div>
                         </div>
+                        
+                       
                         <div class="rincian_product">
                             <div class="isi_rincian_product">
                                 <h5>Kategori</h5>
-                                <p><?php echo $product_data['nama']; ?></p>
+                                <span><?php echo $product_data['nama']; ?></span>
                             </div>
                             <div class="isi_rincian_product">
                                 <h5>Total Stok</h5>
@@ -230,6 +252,9 @@ if ($product_data) {
                                 <p><?php echo $kota_toko . ' ' . $provinsi_toko; ?></p>
                             </div>
                         </div>
+                        <?php
+                            if (isset($_COOKIE['login'])) {
+                        ?>
                         <div class="add_cart">
                             <div class="button_box_cart">
                                 <div class="masukan_keranjang" id="masukan_keranjang2" onclick="view_addcart()">
@@ -244,6 +269,7 @@ if ($product_data) {
                                     <p>Hapus Dari Keranjang</p>
                                 </div>
                                 <?php
+                                    
                                 $cart = $server->query("SELECT * FROM `keranjang` WHERE `id_iklan`='$idproduct' AND `id_user`='$iduser'");
                                 $cart_data = mysqli_fetch_assoc($cart);
                                 if ($cart_data) {
@@ -266,10 +292,23 @@ if ($product_data) {
                                     <p>Beli Sekarang</p>
                                 </div>
                             </div>
+                            </div>
+                                <?php
+                            } else {
+                                ?>
+                                <div class="content_view">
+                                    <div class="bl_title">
+                                    <p>Silahkan <a href="../../login">Masuk</a> untuk melanjutkan transaksi!</p>
+                                    </div>
+                            </div>
+                                    <?php
+                            }
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        </div>
+
+
             <!-- DESKRIPSI -->
             <div class="content_view">
                 <div class="cv_title">
@@ -328,11 +367,7 @@ if ($product_data) {
             </div>
             <div class="back_add_card"></div>
             <div id="res" style="display: block;"></div>
-        <?php
-        } else {
-            include '../partials/belum-login.php';
-        }
-        ?>
+
     </div>
     <!-- CONTENT -->
 
@@ -350,14 +385,8 @@ if ($product_data) {
         </script>
     <?php
     }
-    if (!$product_data['ukuran'] == '') {
     ?>
-        <script>
-            id_varian_ukuran0.click();
-        </script>
-    <?php
-    }
-    ?>
+
     <!-- JS -->
 </body>
 

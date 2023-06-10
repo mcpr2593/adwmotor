@@ -16,7 +16,7 @@ $page = 'HOME';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" />
     <link rel="icon" href="./assets/icons/<?php echo $logo; ?>" type="image/svg">
     <link rel="stylesheet" href="./assets/css/index.css">
-    <script src="asset/js/app.js"></script>
+    <link rel="stylesheet" href="./dev/assets/css/index.css">
 </head>
 
 <body>
@@ -50,7 +50,7 @@ $page = 'HOME';
                 ?>
                     <a href="<?php echo $url; ?>category/list/<?php echo $kategori_data['id']; ?>">
                         <div class="isi_kategori">
-                            <img src="./assets/icons/category/<?php echo $kategori_data['icon']; ?>">
+                            <img src="assets/icons/category/<?php echo $kategori_data['icon']; ?>">
                             <p><?php echo $kategori_data['nama']; ?></p>
                         </div>
                     </a>

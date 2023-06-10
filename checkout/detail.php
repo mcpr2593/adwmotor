@@ -18,17 +18,17 @@ if (!$invoice_data) {
 }
 
 // RAJA ONGKIR COST
-if (!$invoice_data['kota'] == '') {
-    $prov_exp_li = explode(',', $invoice_data['provinsi']);
-    $kota_exp_li = explode(',', $invoice_data['kota']);
-    $kota_tujuan  = $kota_exp_li[0];
-    $kurir_ivd = $invoice_data['kurir'];
-    $layanan_kurir_ivd = $invoice_data['layanan_kurir'];
-    $etd_pengiriman_ivd = $invoice_data['etd'];
-    $harga_ongkir = $invoice_data['harga_ongkir'];
-} else {
+// if (!$invoice_data['kota'] == '') {
+//     $prov_exp_li = explode(',', $invoice_data['provinsi']);
+//     $kota_exp_li = explode(',', $invoice_data['kota']);
+//     $kota_tujuan  = $kota_exp_li[0];
+//     $kurir_ivd = $invoice_data['kurir'];
+//     $layanan_kurir_ivd = $invoice_data['layanan_kurir'];
+//     $etd_pengiriman_ivd = $invoice_data['etd'];
+//     $harga_ongkir = $invoice_data['harga_ongkir'];
+// } else {
     $harga_ongkir = 0;
-}
+// }
 
 $total_biaya = $harga_diskon_fs + $harga_ongkir;
 
@@ -97,27 +97,11 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
     <div class="setting_lokasi" id="setting_lokasi">
         <div class="isi_setting_lokasi">
             <h1>Tentukan Alamat Pengiriman</h1>
-            <div class="form-daerah">
-
-                <select class="select" id="provinsi" onchange="changeProvinsi()">
-                    <option value="">Pilih Provinsi</option>
-                    <?php 
-                    while($d = mysqli_fetch_array($data_provinsi)){
-                        ?>
-                        <option value="<?php echo $d['kode']; ?>"><?php echo $d['nama']; ?></option>
-                        <?php 
-                    }
-                    ?>
-                </select>
-                
-            </div>
-            <div class="form-daerah">
-            <select class="select" id="kota-kabupaten"></select>
-                </div>
-
+            <textarea class="textarea alamat_lengkap" id="provinsi" rows="1" placeholder="Provinsi"></textarea>
+            <textarea class="textarea alamat_lengkap" id="kota_kabupaten" rows="1" placeholder="Kota / Kabupaten"></textarea>
             <div class="form-kec-des">
-            <select class="select" id="kecamatan"></select>
-            <select class="select" id="kelurahan"></select>
+            <textarea class="textarea alamat_lengkap" id="kecamatan" rows="1" placeholder="Kecamatan"></textarea>
+            <textarea class="textarea alamat_lengkap" id="kelurahan" rows="1" placeholder="Kelurahan"></textarea>
                 </div>
             <textarea class="textarea alamat_lengkap" id="alamat_lengkap" rows="3" placeholder="Alamat Lengkap"></textarea>
             <div class="button simpan_lokasi" id="simpan_lokasi" onclick="SimpanLlokasi('<?php echo $id_invoice; ?>')">
@@ -276,7 +260,7 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
                 <?php
                 if (!$invoice_data['kota'] == '') {
                 ?>
-                    <p><?php echo $invoice_data['alamat_lengkap']; ?>, <?php echo $kota_exp_li[1]; ?>, <?php echo $prov_exp_li[1]; ?>, Indonesia</p>
+                    <p><?php echo $invoice_data['alamat_lengkap']; ?>,  <?php echo $invoice_data['kelurahan']; ?>,  <?php echo $invoice_data['kecamatan']; ?>, <?php echo $invoice_data['kota']; ?>, <?php echo $invoice_data['provinsi']; ?>, Indonesia</p>
                 <?php
                 } else {
                 ?>
@@ -410,7 +394,7 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
     <!-- JS -->
     <script src="../../assets/js/checkout/detail.js"></script>
     <!-- JS -->
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
 		$(document).ready(function(){
 
             // sembunyikan form kabupaten, kecamatan dan desa
@@ -424,11 +408,11 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
 				var data = "id="+id+"&data=kabupaten";
 				$.ajax({
 					type: 'POST',
-					url: "http://192.168.1.4/toko/get_daerah.php",
+					url: "https://cb13-36-68-53-98.ngrok-free.app/adwmotor/get_daerah.php",
 					data: data,
 					success: function(hasil) {
-						$("#kota-kabupaten").html(hasil);
-                        $("#kota-kabupaten").show();
+						$("#kota_kabupaten").html(hasil);
+                        $("#kota_kabupaten").show();
 						$("#kecamatan").hide();
 						$("#kelurahan").hide();
 
@@ -437,12 +421,12 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
 			});
 
 			// ambil data kecamatan/kota ketika data memilih kabupaten
-			$('body').on("change","#kota-kabupaten",function(){
+			$('body').on("change","#kota_kabupaten",function(){
 				var id = $(this).val();
 				var data = "id="+id+"&data=kecamatan";
 				$.ajax({
 					type: 'POST',
-					url: "http://192.168.1.4/toko/get_daerah.php",
+					url: "https://cb13-36-68-53-98.ngrok-free.app/adwmotor/get_daerah.php",
 					data: data,
 					success: function(hasil) {
 						$("#kecamatan").html(hasil);
@@ -458,7 +442,7 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
 				var data = "id="+id+"&data=desa";
 				$.ajax({
 					type: 'POST',
-					url: "http://192.168.1.4/toko/get_daerah.php",
+					url: "https://cb13-36-68-53-98.ngrok-free.app/adwmotor/get_daerah.php",
 					data: data,
 					success: function(hasil) {
 						$("#kelurahan").html(hasil);
@@ -469,7 +453,7 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
 
 
 		});
-	</script>
+	</script> -->
 </body>
 
 </html>

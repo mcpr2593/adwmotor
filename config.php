@@ -3,14 +3,14 @@ session_start();
 
 // GLOBAL URL
 //Masukkan url domain utama dengan http / https
-$url = "http://localhost/motor/";
+$url = "https://5a4e-36-68-53-89.ngrok-free.app/adwmotor/";
 
 // CONNECT SERVER
 $server = new mysqli(
     "localhost", //host db
     "root", //user db
     "", //pass user
-    "motor" //nama db
+    "bw235297v_data" //nama db
 );
 
 // CEK LOGIN USER

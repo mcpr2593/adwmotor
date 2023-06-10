@@ -9,7 +9,7 @@ $berat_ep = str_replace('.', '', $_POST['berat_ep']);
 $stok_ep = str_replace('.', '', $_POST['stok_ep']);
 $deskripsi_ep = mysqli_real_escape_string($server, $_POST['deskripsi_ep']);
 $varian_warna = substr($_POST['varian_warna_ep'], 1);
-$varian_ukuran = substr($_POST['varian_ukuran_ep'], 1);
+$kredit = substr($_POST['kredit_ep'], 1);
 
 $val_img_ed_ep1 = $_POST['val_img_ed_ep1'];
 $val_img_ed_ep2 = $_POST['val_img_ed_ep2'];
@@ -83,7 +83,7 @@ if ($val_img_ed_ep5 == '1') {
 $name_gambar_add = $nametodb1 . $nametodb2 . $nametodb3 . $nametodb4 . $nametodb5;
 $name_gambar = substr($name_gambar_add, 0, -1);
 
-$edit_produk_adm = $server->query("UPDATE `iklan` SET `id_kategori`='$kategori_ep',`gambar`='$name_gambar',`judul`='$judul_ep',`harga`='$harga_ep',`deskripsi`='$deskripsi_ep',`berat`='$berat_ep',`warna`='$varian_warna',`ukuran`='$varian_ukuran',`stok`='$stok_ep' WHERE `id`='$id_produk_ep' ");
+$edit_produk_adm = $server->query("UPDATE `iklan` SET `id_kategori`='$kategori_ep',`gambar`='$name_gambar',`judul`='$judul_ep',`harga`='$harga_ep', `kredit`='$kredit', `deskripsi`='$deskripsi_ep',`berat`='$berat_ep',`warna`='$varian_warna',`stok`='$stok_ep' WHERE `id`='$id_produk_ep' ");
 
 if ($edit_produk_adm) {
 ?>

@@ -160,3 +160,19 @@ function close_back_varian_produk() {
     buvar_beli_sekarang.style.display = 'none';
     back_varian_produk.style.display = 'none';
 }
+
+function view_addcart() {
+    buvar_masukkan_keranjang.style.display = 'block';
+    buvar_beli_sekarang.style.display = 'none';
+    back_varian_produk.style.display = 'flex';
+}
+
+function view_kredit() {
+    close_kredit.style.display = 'block';
+    back_kredit.style.display = 'flex';
+}
+
+function close_back_kredit() {
+    close_kredit.style.display = 'none';
+    back_kredit.style.display = 'none';
+}
