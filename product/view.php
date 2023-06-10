@@ -203,7 +203,18 @@ if ($product_data) {
                             </div>
                         </div>
                         <div class="harga_box">
+                            
                             <div class="isi_harga_box">
+                            <?php
+                            if ($product_data['tipe_iklan'] == "flash sale") {
+                            ?>
+                                <div class="isi_harga_flashsale">
+                                    <i class="ri-flashlight-fill"></i>
+                                    <p>Potongan Harga</p>
+                                </div>
+                            <?php
+                            }
+                            ?>
                                 <?php
                                 if ($product_data['tipe_iklan'] == "flash sale") {
                                 ?>
@@ -216,17 +227,9 @@ if ($product_data) {
                                 <?php
                                 }
                                 ?>
+                                
                             </div>
-                            <?php
-                            if ($product_data['tipe_iklan'] == "flash sale") {
-                            ?>
-                                <div class="isi_harga_flashsale">
-                                    <i class="ri-flashlight-fill"></i>
-                                    <p>Flash Sale</p>
-                                </div>
-                            <?php
-                            }
-                            ?>
+
                                     <div class="ak_cicilan" onclick="view_kredit()">
                                     <i class="ri-wallet-3-fill"></i>
                                     <p>Akumulasi Cicilan</p>

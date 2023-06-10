@@ -1,6 +1,6 @@
 <?php
 include '../config.php';
-require_once '../assets/composer/midtrans-php-master/Midtrans.php';
+
 
 $id_invoice = $_GET['idinvoice'];
 $invoice = $server->query("SELECT * FROM `invoice`, `iklan`, `kategori` WHERE invoice.idinvoice='$id_invoice' AND invoice.id_user='$iduser' AND invoice.id_iklan=iklan.id AND iklan.id_kategori=kategori.id");
@@ -32,31 +32,31 @@ if (!$invoice_data) {
 
 $total_biaya = $harga_diskon_fs + $harga_ongkir;
 
-// MIDTRANS
-// Set your Merchant Server Key
-\Midtrans\Config::$serverKey = $midtrans_server_key;
-// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-\Midtrans\Config::$isProduction = false;
-// Set sanitization on (default)
-\Midtrans\Config::$isSanitized = true;
-// Set 3DS transaction for credit card to true
-\Midtrans\Config::$is3ds = true;
+// // MIDTRANS
+// // Set your Merchant Server Key
+// \Midtrans\Config::$serverKey = $midtrans_server_key;
+// // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+// \Midtrans\Config::$isProduction = false;
+// // Set sanitization on (default)
+// \Midtrans\Config::$isSanitized = true;
+// // Set 3DS transaction for credit card to true
+// \Midtrans\Config::$is3ds = true;
 
-$order_id_midtrans = $id_invoice . '-midtrans-' . time();
+// $order_id_midtrans = $id_invoice . '-midtrans-' . time();
 
-$params = array(
-    'transaction_details' => array(
-        'order_id' => $order_id_midtrans,
-        'gross_amount' => $total_biaya,
-    ),
-    'customer_details' => array(
-        'first_name' => $profile['nama_lengkap'],
-        // 'last_name' => 'pratama',
-        'email' => $profile['email'],
-        // 'phone' => '08111222333',
-    ),
-);
-$snapToken = \Midtrans\Snap::getSnapToken($params);
+// $params = array(
+//     'transaction_details' => array(
+//         'order_id' => $order_id_midtrans,
+//         'gross_amount' => $total_biaya,
+//     ),
+//     'customer_details' => array(
+//         'first_name' => $profile['nama_lengkap'],
+//         // 'last_name' => 'pratama',
+//         'email' => $profile['email'],
+//         // 'phone' => '08111222333',
+//     ),
+// );
+// $snapToken = \Midtrans\Snap::getSnapToken($params);
 
 // NOMOR REKENING
 $select_norek = $server->query("SELECT * FROM `nomor_rekening` WHERE `idnorek`='1' ");
@@ -298,7 +298,7 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
                 <?php
                 if (!$invoice_data['kota'] == '') {
                 ?>
-                    <div class="opsi_pengiriman">
+                    <!-- <div class="opsi_pengiriman">
                         <div class="isi_opsi_pengiriman_1">
                             <h5>Opsi Pengiriman:</h5>
                         </div>
@@ -314,7 +314,7 @@ $data_provinsi =  $server->query("SELECT kode,nama FROM wilayah_2020 WHERE CHAR_
                                 <h5>Rp <?php echo number_format($harga_ongkir, 0, ".", "."); ?></h5>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 <?php
                 } else {
                 ?>
