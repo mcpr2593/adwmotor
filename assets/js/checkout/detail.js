@@ -7,7 +7,7 @@ function changeProvinsi() {
         if (this.readyState == 1) {
         }
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('kota_kabupaten').innerHTML = this.responseText;
+            document.getElementById('kota').innerHTML = this.responseText;
             var getscriptres = document.getElementsByTagName('script');
             for (var i = 0; i < getscriptres.length - 0; i++) {
                 if (getscriptres[i + 0].text != null) eval(getscriptres[i + 0].text);
@@ -24,35 +24,22 @@ function SimpanLlokasi(id_inv_sl) {
     } else {
         provinsi.style.borderColor = '#e2e2e2';
     }
-    if (kota_kabupaten.value == '') {
-        kota_kabupaten.style.borderColor = '#EA2027';
+    if (kota.value == '') {
+        kota.style.borderColor = '#EA2027';
     } else {
-        kota_kabupaten.style.borderColor = '#e2e2e2';
-    }
-    if (kecamatan.value == '') {
-        kecamatan.style.borderColor = '#EA2027';
-    } else {
-        kecamatan.style.borderColor = '#e2e2e2';
-    }
-    if (kelurahan.value == '') {
-        kelurahan.style.borderColor = '#EA2027';
-    } else {
-        kelurahan.style.borderColor = '#e2e2e2';
+        kota.style.borderColor = '#e2e2e2';
     }
     if (alamat_lengkap.value == '') {
         alamat_lengkap.style.borderColor = '#EA2027';
     } else {
-        alamat_lengkap.style.borderColor = '#e2e2e2';
+        provinsi.style.borderColor = '#e2e2e2';
     }
-    if (provinsi.value && kota_kabupaten.value && kecamatan.value && kelurahan.value && alamat_lengkap.value) {
+    if (provinsi.value && kota.value && alamat_lengkap.value) {
         var data_lokasi = new FormData();
-        
         data_lokasi.append('id_invoice', id_inv_sl);
-        data_lokasi.append('vprovinsi', document.getElementById('provinsi').value);
-        data_lokasi.append('vkota', document.getElementById('kota_kabupaten').value);
-        data_lokasi.append('vkecamatan', document.getElementById('kecamatan').value);
-        data_lokasi.append('vkelurahan', document.getElementById('kelurahan').value);
-        data_lokasi.append('valamat_lengkap', document.getElementById('alamat_lengkap').value);
+        data_lokasi.append('id_provinsi', document.getElementById('provinsi').value);
+        data_lokasi.append('id_kota', document.getElementById('kota-kabupaten').value);
+        data_lokasi.append('alamat_lengkap', document.getElementById('alamat_lengkap').value);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 1) {
@@ -63,11 +50,10 @@ function SimpanLlokasi(id_inv_sl) {
                 document.getElementById('res').innerHTML = this.responseText;
                 simpan_lokasi.style.display = 'flex';
                 loading_lokasi.style.display = 'none';
-
-                // var getscriptres = document.getElementsByTagName('script');
-                // for (var i = 0; i < getscriptres.length - 0; i++) {
-                //     if (getscriptres[i + 0].text != null) eval(getscriptres[i + 0].text);
-                // }
+                var getscriptres = document.getElementsByTagName('script');
+                for (var i = 0; i < getscriptres.length - 0; i++) {
+                    if (getscriptres[i + 0].text != null) eval(getscriptres[i + 0].text);
+                }
             }
         }
         xhttp.open("POST", "../../system/checkout/save-location.php", true);
